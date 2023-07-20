@@ -11,13 +11,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Camera camera;
 
     private Rigidbody playerRb;
-    public Vector2 moveVec;
-    public Vector3 dirVec;
+    private Vector2 moveVec;
+    private Vector3 dirVec;
 
     [SerializeField] float mouseSens;
-    public Vector2 lookVec;
+    private Vector2 lookVec;
     private float xValue;
     private float yValue;
+    private Vector3 offset = new Vector3(0, -0.5f, 0.25f);
+
 
     void Start()
     {
@@ -36,9 +38,10 @@ public class PlayerController : MonoBehaviour
 
     private void LateUpdate()
     {
-        camera.transform.position = transform.position;
-        if (lookVec.sqrMagnitude == 0) return;
+        camera.transform.position = transform.position + transform.TransformPoint(offset);
+        yValue = Mathf.Clamp(yValue, -200f, 100f);
         camera.transform.rotation = Quaternion.Euler(-yValue * mouseSens, xValue * mouseSens, 0f);
+
     }
 
     public void Move(InputAction.CallbackContext context)
