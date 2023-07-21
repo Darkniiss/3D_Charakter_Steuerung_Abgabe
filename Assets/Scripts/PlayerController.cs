@@ -16,9 +16,11 @@ public class PlayerController : MonoBehaviour
     private Vector3 dirVec;
     private bool isGrounded;
     private bool isAirborne;
+    private bool isInRange;
+    public bool playerInteracted;
 
     [SerializeField] float mouseSens;
-    public Vector2 lookVec;
+    private Vector2 lookVec;
     private float xValue;
     private float yValue;
     //private Vector3 offset = new Vector3(0, -0.5f, 0.25f);
@@ -99,6 +101,14 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    public void Interact(InputAction.CallbackContext context)
+    {
+        if (isInRange)
+        {
+            playerInteracted = true;
+        }
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
@@ -116,6 +126,18 @@ public class PlayerController : MonoBehaviour
             isGrounded = false;
             isAirborne = true;
         }
+    }
+
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        isInRange = true;
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        isInRange = false;
     }
 
 }
