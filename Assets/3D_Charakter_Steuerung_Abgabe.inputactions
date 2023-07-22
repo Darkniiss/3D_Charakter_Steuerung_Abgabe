@@ -24,9 +24,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Look",
+                    "name": "LookMouse",
                     "type": "Value",
                     "id": "7ece47f6-e334-4c31-9d6b-915757df9ff2",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "LookGamepad",
+                    "type": "Value",
+                    "id": "95b8bf09-4a99-48fa-9132-42e900443241",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
@@ -177,23 +186,12 @@
                 },
                 {
                     "name": "",
-                    "id": "c1f7a91b-d0fd-4a62-997e-7fb9b69bf235",
-                    "path": "<Gamepad>/rightStick",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Gamepad",
-                    "action": "Look",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "8c8e490b-c610-4785-884f-f04217b23ca4",
                     "path": "<Pointer>/delta",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse;Touch",
-                    "action": "Look",
+                    "action": "LookMouse",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -204,7 +202,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Joystick",
-                    "action": "Look",
+                    "action": "LookMouse",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -282,6 +280,17 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a23aff61-d5b5-4e1d-882d-da768bc51bf8",
+                    "path": "<Gamepad>/rightStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "LookGamepad",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

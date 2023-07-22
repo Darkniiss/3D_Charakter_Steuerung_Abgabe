@@ -806,7 +806,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1021969637}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: MoveCamera
+        m_MethodName: MoveCameraMouse
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -890,6 +890,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 1a0a21df-f42a-4006-902f-08926638dbab
     m_ActionName: Player/Jump[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1021969637}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: MoveCameraGamepad
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 95b8bf09-4a99-48fa-9132-42e900443241
+    m_ActionName: Player/LookGamepad[/XInputControllerWindows/rightStick]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -914,6 +930,10 @@ MonoBehaviour:
   isAirborne: 0
   playerInteracted: 0
   mouseSens: 0.3
+  gamepadSens: 2
+  lookVec: {x: 0, y: 0}
+  xValue: 0
+  yValue: 0
 --- !u!23 &1021969638
 MeshRenderer:
   m_ObjectHideFlags: 0

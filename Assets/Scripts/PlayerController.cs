@@ -20,9 +20,11 @@ public class PlayerController : MonoBehaviour
     public bool playerInteracted;
 
     [SerializeField] float mouseSens;
-    private Vector2 lookVec;
-    private float xValue;
-    private float yValue;
+    [SerializeField] float gamepadSens;
+    private float sensitivity;
+    public Vector2 lookVec;
+    public float xValue;
+    public float yValue;
     //private Vector3 offset = new Vector3(0, -0.5f, 0.25f);
 
 
@@ -73,7 +75,7 @@ public class PlayerController : MonoBehaviour
     {
         //camera.transform.position = transform.position + transform.TransformPoint(offset);
         yValue = Mathf.Clamp(yValue, -200f, 100f);
-        camera.transform.rotation = Quaternion.Euler(-yValue * mouseSens, xValue * mouseSens, 0f);
+        camera.transform.rotation = Quaternion.Euler(-yValue * sensitivity, xValue * sensitivity, 0f);
 
     }
 
@@ -84,11 +86,29 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    public void MoveCamera(InputAction.CallbackContext context)
+    public void MoveCameraMouse(InputAction.CallbackContext context)
     {
+        sensitivity = mouseSens;
         lookVec = context.ReadValue<Vector2>();
         xValue += lookVec.x;
         yValue += lookVec.y;
+    }
+
+    public void MoveCameraGamepad(InputAction.CallbackContext context)
+    {
+
+
+
+        sensitivity = gamepadSens;
+        lookVec = context.ReadValue<Vector2>();
+        xValue += lookVec.x;
+        yValue += lookVec.y;
+
+
+
+
+
+
     }
 
     public void Jump(InputAction.CallbackContext context)
