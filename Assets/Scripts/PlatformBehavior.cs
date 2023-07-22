@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlatformBehavior : MonoBehaviour
 {
-    [SerializeField] private PlayerController player;
+    private PlayerController player;
 
     private float timePassed;
 

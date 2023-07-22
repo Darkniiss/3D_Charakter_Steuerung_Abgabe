@@ -14,8 +14,8 @@ public class PlayerController : MonoBehaviour
     private Rigidbody playerRb;
     private Vector2 moveVec;
     private Vector3 dirVec;
-    private bool isGrounded;
-    private bool isAirborne;
+    public bool isGrounded;
+    public bool isAirborne;
     private bool isInRange;
     public bool playerInteracted;
 
@@ -97,6 +97,8 @@ public class PlayerController : MonoBehaviour
         {
             //playerRb.velocity = Vector3.up * jumpForce * Time.deltaTime;
             playerRb.AddForce(Vector3.up * jumpForce, ForceMode.VelocityChange);
+            isAirborne = true;
+            isGrounded = false;
         }
 
     }
@@ -117,16 +119,10 @@ public class PlayerController : MonoBehaviour
             isAirborne = false;
             //playerRb.velocity = Vector3.zero;
         }
+
     }
 
-    private void OnCollisionExit(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            isGrounded = false;
-            isAirborne = true;
-        }
-    }
+
 
 
 
