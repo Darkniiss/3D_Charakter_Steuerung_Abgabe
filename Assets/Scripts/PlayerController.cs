@@ -9,24 +9,26 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float moveSpeed;
     [SerializeField] private float jumpForce;
+    [SerializeField] private float mouseSens;
+    [SerializeField] private float gamepadSens;
     [SerializeField] private new Camera camera;
 
+    private float sensitivity;
+    private bool isInRange;
+    private bool usingMouse;
+    private bool usingGamepad;
     private Rigidbody playerRb;
     private Vector2 moveVec;
     private Vector3 dirVec;
+
+    public float xValueMouse;
+    public float yValueMouse;
+    public float xValueGamepad;
+    public float yValueGamepad;
     public bool isGrounded;
     public bool isAirborne;
-    private bool isInRange;
     public bool playerInteracted;
-
-    [SerializeField] float mouseSens;
-    [SerializeField] float gamepadSens;
-    private float sensitivity;
     public Vector2 lookVec;
-    public float xValue;
-    public float yValue;
-    //private Vector3 offset = new Vector3(0, -0.5f, 0.25f);
-
 
     void Start()
     {
@@ -38,11 +40,6 @@ public class PlayerController : MonoBehaviour
 
 
         transform.rotation = Quaternion.Euler(0f, camera.transform.rotation.eulerAngles.y, 0f);
-
-        //if(lookVec.x < -10f || lookVec.x > 10f)
-        //{
-        //    playerRb.velocity = Vector3.one;
-        //}
 
         if (dirVec.magnitude != 0f)
         {
@@ -61,61 +58,51 @@ public class PlayerController : MonoBehaviour
         {
             playerRb.velocity = Vector3.zero;
         }
-
-        //playerRb.velocity = transform.TransformDirection(dirVec) * moveSpeed * Time.deltaTime;
-
-        //    else if(dirVec.sqrMagnitude == 0f && !isAirborne)
-        //{
-        //    playerRb.velocity = Vector3.zero;
-        //}
-
     }
 
     private void LateUpdate()
     {
-        //camera.transform.position = transform.position + transform.TransformPoint(offset);
-        yValue = Mathf.Clamp(yValue, -200f, 100f);
-        camera.transform.rotation = Quaternion.Euler(-yValue * sensitivity, xValue * sensitivity, 0f);
+        if (usingMouse)
+        {
 
+        yValueMouse = Mathf.Clamp(yValueMouse, -200f, 100f);
+        camera.transform.rotation = Quaternion.Euler(-yValueMouse * sensitivity, xValueMouse * sensitivity, 0f);
+        }
+        else
+        {
+            xValueGamepad += lookVec.x;
+            yValueGamepad += lookVec.y;
+            yValueGamepad = Mathf.Clamp(yValueGamepad, -200f, 100f);
+            camera.transform.rotation = Quaternion.Euler(-yValueGamepad * sensitivity, xValueGamepad * sensitivity, 0f);
+        }
     }
 
     public void Move(InputAction.CallbackContext context)
     {
         moveVec = context.ReadValue<Vector2>();
         dirVec = new Vector3(moveVec.x, 0f, moveVec.y);
-
     }
 
     public void MoveCameraMouse(InputAction.CallbackContext context)
     {
         sensitivity = mouseSens;
         lookVec = context.ReadValue<Vector2>();
-        xValue += lookVec.x;
-        yValue += lookVec.y;
+        xValueMouse += lookVec.x;
+        yValueMouse += lookVec.y;
+        usingMouse = true;
     }
 
     public void MoveCameraGamepad(InputAction.CallbackContext context)
     {
-
-
-
         sensitivity = gamepadSens;
         lookVec = context.ReadValue<Vector2>();
-        xValue += lookVec.x;
-        yValue += lookVec.y;
-
-
-
-
-
-
+        usingMouse = false;
     }
 
     public void Jump(InputAction.CallbackContext context)
     {
         if (isGrounded && context.started)
         {
-            //playerRb.velocity = Vector3.up * jumpForce * Time.deltaTime;
             playerRb.AddForce(Vector3.up * jumpForce, ForceMode.VelocityChange);
             isAirborne = true;
             isGrounded = false;
@@ -137,14 +124,8 @@ public class PlayerController : MonoBehaviour
         {
             isGrounded = true;
             isAirborne = false;
-            //playerRb.velocity = Vector3.zero;
         }
-
     }
-
-
-
-
 
     private void OnTriggerEnter(Collider other)
     {
@@ -155,5 +136,4 @@ public class PlayerController : MonoBehaviour
     {
         isInRange = false;
     }
-
 }

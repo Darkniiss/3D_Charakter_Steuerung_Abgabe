@@ -4,13 +4,17 @@ using UnityEngine;
 
 public class PlatformBehavior : MonoBehaviour
 {
-    private PlayerController player;
+
+    [SerializeField] private float upSpeed;
 
     private float timePassed;
+    private PlayerController player;
+    private Rigidbody platformRb;
 
     void Start()
     {
         player = GameObject.Find("Player").GetComponent<PlayerController>();
+        platformRb = GetComponent<Rigidbody>();
     }
 
     void Update()
@@ -21,7 +25,7 @@ public class PlatformBehavior : MonoBehaviour
 
             if (timePassed > 5)
             {
-                transform.Translate(Vector3.up * Time.deltaTime);
+                platformRb.velocity = Vector3.up * upSpeed * Time.deltaTime;
             }
         }
     }
